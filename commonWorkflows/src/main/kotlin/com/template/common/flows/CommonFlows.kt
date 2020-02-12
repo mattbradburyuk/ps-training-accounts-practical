@@ -9,24 +9,24 @@ import net.corda.core.utilities.unwrap
 // *********
 // * Flows *
 // *********
-@InitiatingFlow
-@StartableByRPC
-class Initiator : FlowLogic<Unit>() {
-    override val progressTracker = ProgressTracker()
-
-    @Suspendable
-    override fun call() {
-        // Initiator flow logic goes here.
-    }
-}
-
-@InitiatedBy(Initiator::class)
-class Responder(val counterpartySession: FlowSession) : FlowLogic<Unit>() {
-    @Suspendable
-    override fun call() {
-        // Responder flow logic goes here.
-    }
-}
+//@InitiatingFlow
+//@StartableByRPC
+//class Initiator : FlowLogic<Unit>() {
+//    override val progressTracker = ProgressTracker()
+//
+//    @Suspendable
+//    override fun call() {
+//        // Initiator flow logic goes here.
+//    }
+//}
+//
+//@InitiatedBy(Initiator::class)
+//class Responder(val counterpartySession: FlowSession) : FlowLogic<Unit>() {
+//    @Suspendable
+//    override fun call() {
+//        // Responder flow logic goes here.
+//    }
+//}
 // Note, superclass shouldn't be startable by RPC
 @InitiatingFlow
 abstract class WhoAreYouInitiatorFlow(open val parties: List<Party>): FlowLogic<String>()
