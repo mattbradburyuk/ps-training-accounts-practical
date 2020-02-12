@@ -27,30 +27,13 @@ class Responder(val counterpartySession: FlowSession) : FlowLogic<Unit>() {
         // Responder flow logic goes here.
     }
 }
+// Note, superclass shouldn't be startable by RPC
+@InitiatingFlow
+abstract class WhoAreYouInitiatorFlow(open val parties: List<Party>): FlowLogic<String>()
 
-//@InitiatingFlow
-//@StartableByRPC
-//abstract class WhoAreYouInitiatorFlow(open val parties: List<Party>): FlowLogic<String>()
-//
 ////@InitiatedBy(WhoAreYouInitiatorFlow::class)
 //abstract class WhoAreYouResponderFlow(val otherPartySession: FlowSession): FlowLogic<Unit>()
 
-
-@InitiatingFlow
-@StartableByRPC
-class WhoAreYouProducerInitiatorFlow(val parties: List<Party>): FlowLogic<String>(){
-
-    @Suspendable
-    override fun call(): String {
-        logger.info("MB: WhoAreYouProducerInitiatorFlow called")
-        val sessions = parties.map { initiateFlow(it) }
-        val unsafeResults = sessions.map {it.sendAndReceive<String>("Who are you?")}
-        val results = unsafeResults.map { usd -> usd.unwrap {it}  }
-        var str = "Messages:"
-        for (r in results) str = "$str $r "
-        return str
-    }
-}
 
 //@InitiatedBy(WhoAreYouProducerInitiatorFlow::class)
 //class WhoAreYouReceiverResponderFlow(val otherPartySession: FlowSession): FlowLogic<Unit>(){

@@ -1,9 +1,7 @@
 package com.template.receiver.flows
 
 import co.paralleluniverse.fibers.Suspendable
-
-import com.template.common.flows.WhoAreYouProducerInitiatorFlow
-
+import com.template.common.flows.WhoAreYouInitiatorFlow
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.FlowSession
 import net.corda.core.flows.InitiatedBy
@@ -26,7 +24,7 @@ import net.corda.core.utilities.unwrap
 //    }
 //}
 
-@InitiatedBy(WhoAreYouProducerInitiatorFlow::class)
+@InitiatedBy(WhoAreYouInitiatorFlow::class)
 class WhoAreYouReceiverResponderFlow(val otherPartySession: FlowSession): FlowLogic<Unit>(){
 
     @Suspendable

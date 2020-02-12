@@ -1,7 +1,6 @@
 package com.template.testing
 
-
-import com.template.common.flows.WhoAreYouProducerInitiatorFlow
+import com.template.producer.flows.WhoAreYouProducerInitiatorFlow
 import com.template.receiver.flows.WhoAreYouReceiverResponderFlow
 
 
@@ -22,8 +21,8 @@ class CombinedFlowTests {
 //            TestCordapp.findCordapp("com.template.receiver.flows")
 
     )))
-    private val a = network.createNode()
-//            MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.producer.flows"))))
+    private val a = network.createNode(
+            MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.producer.flows"))))
     private val b = network.createNode(
             MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.receiver.flows"))))
 
