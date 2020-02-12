@@ -1,0 +1,7 @@
+
+include 'contracts'
+include 'clients'
+include 'receiverWorkflows'
+include 'producerWorkflows'
+include 'commonWorkflows'
+//include 'iotWorkflows'
