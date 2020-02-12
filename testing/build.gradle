@@ -53,6 +53,7 @@ dependencies {
     cordapp project(":commonWorkflows")
     cordapp project(":producerWorkflows")
     cordapp project(":receiverWorkflows")
+    cordapp project(":iotWorkflows")
 }
 
 task integrationTest(type: Test, dependsOn: []) {

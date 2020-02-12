@@ -12,7 +12,7 @@ import net.corda.core.utilities.unwrap
 // * Flows *
 // *********
 
-// sub class shouldn't have @InitiatingFlow
+// Implemented class shouldn't have @InitiatingFlow
 @StartableByRPC
 class WhoAreYouProducerInitiatorFlow(parties: List<Party>): WhoAreYouInitiatorFlow(parties){
 

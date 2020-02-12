@@ -1,5 +1,6 @@
 package com.template.testing
 
+import com.template.iot.flows.WhoAreYouIOTResponderFlow
 import com.template.producer.flows.WhoAreYouProducerInitiatorFlow
 import com.template.receiver.flows.WhoAreYouReceiverResponderFlow
 
@@ -22,10 +23,12 @@ class CombinedFlowTests {
             MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.producer.flows"))))
     private val b = network.createNode(
             MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.receiver.flows"))))
-
+    private val c = network.createNode(
+            MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.iot.flows"))))
 
     init {
         b.registerInitiatedFlow(WhoAreYouReceiverResponderFlow::class.java)
+        c.registerInitiatedFlow(WhoAreYouIOTResponderFlow::class.java)
     }
 
 
@@ -37,9 +40,8 @@ class CombinedFlowTests {
     fun tearDown() = network.stopNodes()
 
     @Test
-    fun `dummy test`() {
+    fun `test responder`() {
 
-        val aparty = a.info.legalIdentities.single()
         val bparty = b.info.legalIdentities.single()
 
         val flow1 = WhoAreYouProducerInitiatorFlow(listOf(bparty))
@@ -48,6 +50,35 @@ class CombinedFlowTests {
         val result1 = future1.getOrThrow()
 
         assert( result1 == "Messages: I am the Receiver ")
+
+    }
+    @Test
+    fun `test iot`() {
+
+        val cparty = c.info.legalIdentities.single()
+
+        val flow1 = WhoAreYouProducerInitiatorFlow(listOf(cparty))
+        val future1 = a.startFlow(flow1)
+        network.runNetwork()
+        val result1 = future1.getOrThrow()
+
+        assert( result1 == "Messages: I am the IOT device ")
+
+    }
+
+    @Test
+    fun `test both responder and iot`() {
+
+        val bparty = b.info.legalIdentities.single()
+        val cparty = c.info.legalIdentities.single()
+
+        val flow1 = WhoAreYouProducerInitiatorFlow(listOf(bparty,cparty))
+        val future1 = a.startFlow(flow1)
+        network.runNetwork()
+        val result1 = future1.getOrThrow()
+
+        println("MB: result1: $result1")
+        assert( result1 == "Messages: I am the Receiver  I am the IOT device ")
 
     }
 }
