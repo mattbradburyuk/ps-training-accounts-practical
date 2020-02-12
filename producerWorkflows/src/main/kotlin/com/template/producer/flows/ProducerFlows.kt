@@ -19,6 +19,7 @@ class WhoAreYouProducerInitiatorFlow(parties: List<Party>): WhoAreYouInitiatorFl
     @Suspendable
     override fun call(): String {
         logger.info("MB: WhoAreYouProducerInitiatorFlow called")
+        logger.info("MB: test someFunction(): ${someFunction()}")
         val sessions = parties.map { initiateFlow(it) }
         val unsafeResults = sessions.map {it.sendAndReceive<String>("Who are you?")}
         val results = unsafeResults.map { usd -> usd.unwrap {it}  }

@@ -17,9 +17,6 @@ class CombinedFlowTests {
     private val network = MockNetwork(MockNetworkParameters(cordappsForAllNodes = listOf(
             TestCordapp.findCordapp("com.template.contracts"),
             TestCordapp.findCordapp("com.template.common.flows")
-//            TestCordapp.findCordapp("com.template.producer.flows"),
-//            TestCordapp.findCordapp("com.template.receiver.flows")
-
     )))
     private val a = network.createNode(
             MockNodeParameters(additionalCordapps = listOf(TestCordapp.findCordapp("com.template.producer.flows"))))
@@ -42,7 +39,6 @@ class CombinedFlowTests {
     @Test
     fun `dummy test`() {
 
-
         val aparty = a.info.legalIdentities.single()
         val bparty = b.info.legalIdentities.single()
 
@@ -50,8 +46,6 @@ class CombinedFlowTests {
         val future1 = a.startFlow(flow1)
         network.runNetwork()
         val result1 = future1.getOrThrow()
-
-        println("MB: $result1")
 
         assert( result1 == "Messages: I am the Receiver ")
 
