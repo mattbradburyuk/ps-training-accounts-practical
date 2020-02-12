@@ -52,15 +52,15 @@ class WhoAreYouProducerInitiatorFlow(val parties: List<Party>): FlowLogic<String
     }
 }
 
-@InitiatedBy(WhoAreYouProducerInitiatorFlow::class)
-class WhoAreYouReceiverResponderFlow(val otherPartySession: FlowSession): FlowLogic<Unit>(){
-
-    @Suspendable
-    override fun call(){
-        logger.info("MB: WhoAreYouReceiverResponderFlow called")
-        val str = "I am the Receiver"
-        val received = otherPartySession.receive<String>().unwrap { it }
-        logger.info("MB: received: $received")
-        otherPartySession.send(str)
-    }
-}
+//@InitiatedBy(WhoAreYouProducerInitiatorFlow::class)
+//class WhoAreYouReceiverResponderFlow(val otherPartySession: FlowSession): FlowLogic<Unit>(){
+//
+//    @Suspendable
+//    override fun call(){
+//        logger.info("MB: WhoAreYouReceiverResponderFlow called")
+//        val str = "I am the Receiver"
+//        val received = otherPartySession.receive<String>().unwrap { it }
+//        logger.info("MB: received: $received")
+//        otherPartySession.send(str)
+//    }
+//}
