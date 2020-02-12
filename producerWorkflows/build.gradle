@@ -51,7 +51,7 @@ dependencies {
     // CorDapp dependencies.
     cordapp project(":contracts")
     cordapp project(":commonWorkflows")
-//    cordapp project(":receiverWorkflows")
+
 }
 
 task integrationTest(type: Test, dependsOn: []) {

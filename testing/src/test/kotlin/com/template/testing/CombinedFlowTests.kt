@@ -1,8 +1,9 @@
-package com.template
+package com.template.testing
 
-import com.template.common.flows.Responder
+
 import com.template.common.flows.WhoAreYouProducerInitiatorFlow
 import com.template.common.flows.WhoAreYouReceiverResponderFlow
+
 
 import net.corda.core.utilities.getOrThrow
 import net.corda.testing.node.MockNetwork
@@ -13,7 +14,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class ProducerFlowTests {
+class CombinedFlowTests {
     private val network = MockNetwork(MockNetworkParameters(cordappsForAllNodes = listOf(
             TestCordapp.findCordapp("com.template.contracts"),
             TestCordapp.findCordapp("com.template.common.flows")
