@@ -2,10 +2,106 @@
   <img src="https://www.corda.net/wp-content/uploads/2016/11/fg005_corda_b.png" alt="Corda" width="500">
 </p>
 
-# CorDapp Template - Kotlin
+# Spilt Cordapp Example
 
-Welcome to the Kotlin CorDapp template. The CorDapp template is a stubbed-out CorDapp that you can use to bootstrap 
-your own CorDapps.
+An example app showing how a application can be split across multiple workflow cordapps.
+
+For Context, it is a precursor to a App to model goods being sent from a Producer to a Receiver with an IOT Device attached to track location and condition of the goods. Eg these bananas didn't go above 5 degrees for the whole trip.
+
+The App enables the Producer to ask both the Receiver and IOT Device 'who are you?'. Each of them responds with a different message ('I am the receiver' or I am the IOT Device') using a 
+bespoke implementation of an abstract responder class, each packaged in their own cordapp.  
+
+The App has the following Cordapps/ modules
+
+### contracts 
+
+ - Holds the Ledger level State and Contract classes. 
+
+### commonWorkflows
+
+ - Provides abstract classes which will be implemented in the actor specific workflow cordapps 
+ - The abstract classes have placeholder functions which are inherited by the sub classes.
+ - They also allow subclassing so that the subclassed flows still link up (see 'Linking up the flows' below)
+
+### producerWorkflows
+
+- Provides an implementation of the abstract initiating flow for the producer
+
+### receiverWorkflows
+
+- Provides a bespoke implementation of the abstract responder flow for the Receiver
+
+### iotWorkflows
+
+- Provides a bespoke implementation of the abstract responder flow for the IOT device
+
+### testing
+
+When trying to test the testing has to be taken out into its own module. 
+
+If you try and write your tests within one of the cordapp modules then you end up with Circular dependencies. 
+
+*** Think about this ***
+
+
+## Linking up the flows
+
+We want each of the actors to be able to have their own bespoke version of the flow.  We need to make sure any subclassed flow of the abstract initiating flow can be responded to by any subclassed flow of the abstracted Responder flow.  
+
+The abstract WhoAreYouInitiatorFlow is annotated with @InitiatingFLow.
+
+```kotlin
+@InitiatingFlow
+abstract class WhoAreYouInitiatorFlow(open val parties: List<Party>): FlowLogic<String>(){
+
+    fun someFunction(): String{ return "This is a helper function"}
+}
+```
+
+The subclassed responder flows are each be annotated with the abstract InitiatingFlow.  
+
+```kotlin
+@InitiatedBy(WhoAreYouInitiatorFlow::class)
+class WhoAreYouIOTResponderFlow(otherPartySession: FlowSession): WhoAreYouResponderFlow(otherPartySession){}
+}
+```
+```kotlin
+@InitiatedBy(WhoAreYouInitiatorFlow::class)
+class WhoAreYouReceiverResponderFlow(otherPartySession: FlowSession): WhoAreYouResponderFlow(otherPartySession){}
+```
+
+The flows which subclass the abstract InitiatingFLow don't need the @InitiatingFlow annotation 
+
+```kotlin
+@StartableByRPC
+class WhoAreYouProducerInitiatorFlow(parties: List<Party>): WhoAreYouInitiatorFlow(parties){}
+```
+
+Note this is a slightly different way of modifying the Initiator and responder Flows than described in the docs (https://docs.corda.net/head/flow-overriding.html#configuring-responder-flows) 
+In the Docs both the super class and subclasses can be called, in this example the super classes are abstract so they cannot be instantiated themselves meaning that an actor has to use the specific subclass in the cordaap allocated to them. ie it removes the choice of using an standard flow distributed to all actors. 
+
+## Dependency structure
+
+commonWorkFlows -> contracts
+
+producerWokflows -> contracts, commonWorkflows
+receiverWorkflows -> copntracts, commonWorkflows
+iotWorkFlows -> contracts commonWorkflows
+
+
+
+## Modifying deployNodes
+
+
+
+
+
+
+
+
+
+
+Testing challenge
 
 **This is the Kotlin version of the CorDapp template. The Java equivalent is 
 [here](https://github.com/corda/cordapp-template-java/).**
