@@ -27,6 +27,8 @@ flow start WhoAreYouProducerInitiatorFlow parties: [Receiver, IOTDevice]
  
  - Modify the Client to trigger the flows (not done in this repo)
 
+Note, only the Producer node can trigger the 'who am I' ... which is kind of the whole point..
+
 ## Application Structure
 
 The application has the following modules which each generate a separate CorDapp: 
