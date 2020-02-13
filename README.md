@@ -45,21 +45,19 @@ The application has the following modules which each generate a separate CorDapp
 
 ### producerWorkflows
 
-- Provides an implementation of the abstract initiating flow for the producer
+ - Provides an implementation of the abstract initiating flow for the producer
 
 ### receiverWorkflows
 
-- Provides a bespoke implementation of the abstract responder flow for the Receiver
+ - Provides a bespoke implementation of the abstract responder flow for the Receiver
 
 ### iotWorkflows
 
-- Provides a bespoke implementation of the abstract responder flow for the IOT device
+ - Provides a bespoke implementation of the abstract responder flow for the IOT device
 
 ### testing
 
-When trying to test the testing has been taken out into its own module. 
-
-This is to keep the structure clean and avoid possible circular dependencies 
+ - All the testing has been put in its own module. This is to keep the structure clean and avoid possible circular dependencies 
 
 
 ## Linking up the flows
