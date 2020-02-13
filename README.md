@@ -4,20 +4,30 @@
 
 # Spilt Cordapp Example
 
-An example app showing how a application can be split across multiple workflow cordapps.
+An example app showing how a Corda application can be split across multiple workflow CorDapps.
 
-For Context, it is a precursor to a App to model goods being sent from a Producer to a Receiver with an IOT Device attached to track location and condition of the goods. Eg these bananas didn't go above 5 degrees for the whole trip.
+For context, it is a precursor to an App to model goods being sent from a Producer to a Receiver with an IOT Device attached to track location and condition of the goods. Eg these bananas didn't go above 5 degrees for the whole trip. Although this is not implemented in this version.
 
 The App enables the Producer to ask both the Receiver and IOT Device 'who are you?'. Each of them responds with a different message ('I am the receiver' or I am the IOT Device') using a 
 bespoke implementation of an abstract responder class, each packaged in their own cordapp.  
 
 ## Running the cordapp
 
-You can use deployNodes to deploy the Application locally
+You can use deployNodes to deploy the Application locally.
 
-As the flow initiate with a List of Parties you will not be able to use the crash shell to trigger the flows, either: 
- - Use the Corda-Kotlin-Shell, basic script included in Clients/CKSScripts. you will need to download a copy of CKS from the Corda repo (private to R3)
+
+ Then to start the initiating flow you can: 
+ - Use the crash shell:
+ 
+```
+flow start WhoAreYouProducerInitiatorFlow parties: [Receiver, IOTDevice]
+```
+ 
+ - Use the Corda-Kotlin-Shell. There is a basic script included in Clients/CKSScripts. You will need to download a copy of CKS from the Corda repo (private to R3)
+ 
  - Modify the Client to trigger the flows (not done)
+
+## Application Structure
 
 The App has the following Cordapps/ modules: 
 
