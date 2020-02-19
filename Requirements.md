@@ -4,7 +4,7 @@
 
 The Cordapp will be used to facilitate the transportation of Goods from a 'Producer' to a 'Receiver'. During Transit there are physical conditions that must be met which will be measured and recorded by a specialist IOT Device.
 
-### Actors
+## Actors
 
 Producer 
 
@@ -16,7 +16,7 @@ Producer
  
  Receiver
  
- - Example Receiver: Supermarket with several Warehouses
+ - Example Receiver: Supermarket with several warehouses
  - The Receivers are large enough to run their own nodes.
  - The Receivers have multiple locations which will receive goods, the system needs to deliniate between different locations
  - The Receivers should be able to set criteria that the Goods delivery must adhere to, eg maximum temperature
@@ -35,7 +35,7 @@ Producer
  - The IoT device should not be able to receive data which does not relate to its current transportation
  
 
-## Actions
+## Actor Actions
 
 The Producer should be able to take the following actions:
 
@@ -57,6 +57,8 @@ The IoT Device should be able to take the following actions:
  - Recording of the physical measurements and time of measurement on the Ledger 
  - Stop periodic measurements
 
+
+## Business Process
 
 The Good Transportation Business Process should be as follows:
 
