@@ -60,5 +60,4 @@ The IoT Device should be able to take the following actions:
 
 The Good Transportation Business Process should be as follows:
 
-![Good Transportation Business Process](./resources/Goods Transportation Business Process.png)
-
+![](resources/goods_transportation_business_process.png)
